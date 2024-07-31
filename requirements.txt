@@ -1,0 +1,6 @@
+langchain
+python-dotenv
+langchainhub
+langchain-openai
+langchain-experimental # 
+qrcode
