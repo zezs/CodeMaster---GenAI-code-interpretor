@@ -1,3 +1,6 @@
+"""
+python agent to genearte qrc odees for favourite music video
+"""
 from dotenv import load_dotenv
 from langchain import hub
 from langchain_openai import ChatOpenAI
@@ -24,6 +27,7 @@ def main():
     # python repl executes python code in an interpretor(not recomended)
     # uses our virtual env and its packages
     # don't use in production
+    # as PythonREPL in an inbuilt tool we dont have to pass toolname, description and other paramteres
     tools = [PythonREPLTool()]
     agent = create_react_agent(
         prompt=prompt,
@@ -35,8 +39,8 @@ def main():
 
     agent_executor.invoke(
         input={
-            "input": """generate and save in current working directory 15 QRcodes
-                                that point to www.udemy.com/course/langchain, you have qrcode package installed already"""
+            "input": """generate and save 5 QRcodes in a new directory named qr codes in current working directory 
+                                that point to https://www.youtube.com/watch?v=TWf3r9NXz7k, you have qrcode package installed already"""
         }
     )
 
