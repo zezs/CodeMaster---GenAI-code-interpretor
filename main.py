@@ -22,35 +22,40 @@ def main():
     base_prompt = hub.pull("langchain-ai/react-agent-template")
     prompt = base_prompt.partial(instructions=instructions)
 
-    tools = [PythonREPLTool()]
-    agent = create_react_agent(
-        prompt=prompt,
-        llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"),
-        tools=tools,
-    )
+    # tools = [PythonREPLTool()]
 
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-    agent_executor.invoke(
-        input={
-            "input": """generate and save in current working directory 15 QRcodes
-                                that point to www.udemy.com/course/langchain, you have qrcode package installed already"""
-        }
-    )
+    # agent = create_react_agent(
+    #     prompt=prompt,
+    #     llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"),
+    #     tools=tools,
+    # )
+    # agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    # agent_executor.invoke(
+    #     input={
+    #         "input": """generate and save 5 QRcodes in a new directory named qr codes in current working directory 
+    #                             that point to https://www.youtube.com/watch?v=TWf3r9NXz7k, you have qrcode package installed already"""
+    #     }
+    # )
 
+
+    # csv agent uses pandas under the hood, also based on ReAct algo
     csv_agent = create_csv_agent(
         llm=ChatOpenAI(temperature=0, model="gpt-4"),
         path="episode_info.csv",
         verbose=True,
+        allow_dangerous_code=True,
     )
-
     csv_agent.invoke(
         input={"input": "how many columns are there in file episode_info.csv"}
     )
-    csv_agent.invoke(
-        input={
-            "input": "print the seasons by ascending order of the number of episodes they have"
-        }
-    )
+    # csv_agent.invoke(
+    #     input={"input": "in the file episode_info.csv, Give me name of the writer wrote the most episodes? how many episodes did he write?"}
+    # )
+    # csv_agent.invoke(
+    #     input={
+    #         "input": "print the seasons by ascending order of the number of episodes they have"
+    #     }
+    # )
 
 
 if __name__ == "__main__":

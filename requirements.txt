@@ -4,5 +4,7 @@ langchainhub
 langchain-openai
 langchain-experimental # 
 qrcode
-pandas
+pandas # csv agent uses pandas under the hood
 tabulate # beautify the csv file dislpay
+
+# by combining 2 agents we can build a lean version of openai code interpretor, router agent will send the work to the relevant agent
